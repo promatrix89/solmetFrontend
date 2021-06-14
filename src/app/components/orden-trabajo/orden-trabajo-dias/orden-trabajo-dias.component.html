@@ -1,0 +1,36 @@
+<div class="card-body">
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Operario</th>
+          <th>Hs asignadas</th>
+          <th>Hs trabajadas</th>
+          <th>Guardar</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+       <tr *ngFor="let dia of diasOrdenesOperarios">
+          <td>{{dia.fecha | date: 'dd/MM/yyyy'}}</td>
+          <td >{{dia.operario.nombre}}</td>
+          <td>{{dia.hsAsignadas}}</td>
+
+          <td ><input type="number" [disabled]="estadoOrden=='Finalizado'?true:false" step="any" class="form-control-sm" id="horasTrabajadas"  [(ngModel)]="dia.hsTrabajadas"
+            ></td>
+          
+          <td><button class="btn btn-secondary btn-sm" (click)="actualizar(dia)">
+              Actualizar
+            </button></td>
+          <td><button class="btn btn-secondary btn-sm" >
+              Eliminar
+            </button></td>
+        </tr>
+      </tbody>
+    </table>
+    <mat-paginator [length]="totalRegistros" [pageSize]="totalPorPagina" [pageIndex]="paginaActual"
+      [pageSizeOptions]="pageSizeOptions" (page)="paginar($event)" showFirstLastButtons class="float-left mx-2">
+
+    </mat-paginator>
+
+  </div>

@@ -1,0 +1,50 @@
+<div class="card text-dark bg-light mb-3">
+    <div class="card-header">{{titulo}}</div>
+    <div class="card-body">
+        <button class="btn btn-secondary my-2" routerLink="/clientes">
+            Volver
+        </button> 
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <ul class="list-group">
+                    <li class="list-group-item">{{cliente.nombre}}</li>
+                    <li class="list-group-item">{{cliente.apellido}}</li>
+                    <li class="list-group-item">{{cliente.razonSocial}}</li>
+                    <li class="list-group-item">{{cliente.cuit}}</li>
+                </ul>
+            </div>
+            <div class="col-sm">
+
+            </div>
+        </div>
+        <div class="row">
+                <table class="table table-bordered table-striped my-4">
+                    <thead>
+                        <tr>
+                            <th>identificador</th>
+                            <th>fecha</th>
+                            <th>detalle</th>
+                            <th>total</th>
+                            <th>Presupuesto</th>
+                        </tr>
+                    </thead>
+                 <tbody>
+                        <tr *ngFor="let presupuesto of cliente.presupuestoList">
+                            <td>{{presupuesto.id}}</td>
+                            <td>{{presupuesto.fecha | date: 'dd/MM/yyyy'}}</td>
+                            <td>{{presupuesto.detalle}}</td>
+                      
+                            <td>{{presupuesto.total}}</td>
+                            <td><button class="btn btn-primary" (click)="crearOrden(presupuesto,cliente.id)"> Generar orden de trabajo</button>
+                                <button class="btn btn-danger" > Eliminar</button>
+                                <button class="btn btn-success" (click)="downloadFile(presupuesto.id)"> Ver en PDF</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table> 
+        </div>
+
+    </div>
+</div>

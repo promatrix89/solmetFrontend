@@ -1,0 +1,48 @@
+<div class="card text-dark bg-light mb-3" >
+    <div class="card-header">{{titulo}}</div>
+    <div class="card-body">
+        <button class="btn btn-primary my-2" routerLink="/partes/form">
+            Cargar parte
+        </button>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>nombre</th>
+                    <th>descripción</th>
+                    <th>precio de costo</th>
+                    <th>precio de venta</th>
+                    <th>editar</th>
+                    <th>eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let parte of lista">
+                    <td>{{parte.id }}</td>
+                    <td>{{parte.nombre}}</td>
+                    <td>{{parte.descripcion}}</td>
+                    <td>{{parte.precioCosto}}</td>
+                    <td>{{parte.precioVenta}}</td>
+                    <td><button class="btn btn-secondary btn-sm" 
+                        [routerLink]="['/partes/form',parte.id]">
+                        Editar
+                    </button></td>
+                    <td><button class="btn btn-secondary btn-sm" 
+                        (click)="eliminar(parte)">
+                        Eliminar
+                    </button></td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-paginator [length]="totalRegistros"
+              [pageSize]="totalPorPagina"
+              [pageIndex]="paginaActual"
+              [pageSizeOptions]="pageSizeOptions"
+              (page)="paginar($event)"
+              showFirstLastButtons
+              class="float-left mx-2">
+
+        </mat-paginator>
+
+    </div>
+</div>

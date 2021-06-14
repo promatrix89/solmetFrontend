@@ -1,0 +1,181 @@
+<div class="card text-dark bg-light mb-3">
+    <div class="card-header">{{titulo}}</div>
+
+   
+
+    <div class="card-body">
+        <button class="btn btn-secondary my-2" routerLink="/clientes">
+            Volver
+        </button>
+
+        
+        <form >
+            
+            <div class="form-group row">
+            <label for="detalle" class="col-sm2 col-form-label">Cliente</label>
+            <div class="col-sm-6">
+                <input type="text" disabled name="razonSocial" [(ngModel)]="presupuesto.cliente.razonSocial" class="form-control">
+                 
+
+            </div>
+            </div>
+            <div class="form-group row">
+                <label for="detalle" class="col-sm2 col-form-label">Detalle</label>
+                <div class="col-sm-6">
+                    <textarea name="detalle" [(ngModel)]="presupuesto.detalle" class="form-control">
+                     </textarea>
+
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="fecha" class="col-sm2 col-form-label">Fecha</label>
+                <div class="col-sm-6">
+                    <input type="date" name="fecha" [(ngModel)]="presupuesto.fecha" class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="fecha" class="col-sm2 col-form-label">Período validez: </label>
+                <div class="col-sm-1">
+                    <input type="text" name="periodoValidez" [(ngModel)]="presupuesto.periodoValidez" class="form-control">
+                     
+    
+                </div>
+                <div class="col-sm-2 form-group">
+                    <select name="unidadTiempo" class="form-control" 
+                            [(ngModel)]="presupuesto.unidadTiempo"  >
+                                <option *ngFor="let pv of unidadTiempo;let index = index"  >{{pv}}</option>
+                            </select>
+                </div>
+                
+            </div>
+            <div class="form-group row">
+                <label for="formaPago" class="col-sm2 col-form-label">Forma de pago:</label>
+                
+                <div class="col-sm-2">
+                    <select name="formaPago" class="form-control" 
+                            [(ngModel)]="presupuesto.formaPago">
+                                <option *ngFor="let fp of formaPago;let index = index" [selected]="index == 1">{{fp.descripcion}}</option>
+                            </select>
+                </div>
+                
+            </div>
+            
+            <!--<h3>Agregar partes</h3>
+            
+            
+           <div class="form-group row">
+                <div class="col-sm-6">
+                    <mat-form-field>
+                        <mat-label>Partes</mat-label>
+                        <input type="text" placeholder="Seleccione uno" aria-label="Partes" matInput
+                            [formControl]="autocompleteControl" [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]='mostrarNombre' (optionSelected)="seleccionarParte($event)"> 
+                            <mat-option *ngFor="let parte of partesFiltradas | async" [value]="parte">
+                                {{parte.nombre}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+            </div>
+            
+            <div class="alert alert-info my-4" *ngIf="presupuesto.lineasParte.length==0">
+                No hay lineas asignadas para la planilla de costos
+
+            </div>
+   
+            <table class="table table-striped table-hover table-sm" *ngIf="presupuesto.lineasParte.length>0">
+                <thead>
+                    <th>nombre</th>
+                    <th>descripción</th>
+                    <th>precio de venta</th>
+                    <th>cantidad</th>
+                    <th>total</th>
+                    <th>eliminar</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let lineas of presupuesto.lineasParte">
+                        <td>{{lineas.parte.nombre}}</td>
+                        <td>{{lineas.parte.descripcion}}</td>
+                        <td><input type="number" step="any" value="{{lineas.precioVenta}}" class="form-control col-sm-4" (change)="actualizarPrecioVentaParte(lineas.parte.id, $event)"></td>
+                        <td><input type="number" step="any" value="{{lineas.cantidad}}" class="form-control col-sm-4" (change)="actualizarCantidad(lineas.parte.id, $event)"></td>
+                        <td>{{lineas.calcularImporte()}}</td>
+                        <td><button class="btn btn-danger btn-sm" type="button" (click)="eliminarLineaPlanilla(lineas.parte.id)">eliminar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        -->
+            <h3>Agregar planillas</h3>
+            
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <mat-form-field>
+                        <mat-label>Planillas</mat-label>
+                        <input type="text" placeholder="Seleccione una planilla" aria-label="Planilla" matInput
+                            [formControl]="autocompleteControlPlanilla" [matAutocomplete]="autoTests">
+                        <mat-autocomplete #autoTests="matAutocomplete" [displayWith]='mostrarDetallePlanillas' (optionSelected)="seleccionarPlanilla($event)"> 
+                            <mat-option *ngFor="let planilla of planillasFiltradas | async" [value]="planilla">
+                                {{planilla.detalle}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+            </div>
+        
+            <div class="alert alert-info my-4" *ngIf="presupuesto.lineasPlanillas.length==0">
+                No hay lineas asignadas para la planilla de costos
+
+            </div>
+            
+            <table class="table table-striped table-hover table-sm" *ngIf="presupuesto.lineasPlanillas.length>0">
+                <thead>
+                    <th>detalle</th>
+                    <th>cantidad</th>
+                    <th>precio de costo</th>
+                    <th>precio de venta</th>
+                    <th>bonificación</th>
+                    <th>precio con descuento</th>
+                    <th>Iva</th>
+                    
+                    <th>total</th>
+                    <th>eliminar</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let lineas of presupuesto.lineasPlanillas; let i=index" >
+                        <td >{{lineas.detalle}}</td>
+                        
+                        <td><input type="number" step="any" value="{{lineas.cantidad}}" class="input-group input-group-sm mb-3" (change)="actualizarCantidadPlanilla(lineas.planilla.id, $event)"></td>
+                        
+                        <td><input type="number" step="any" value="{{lineas.precioCosto}}" class="input-group input-group-sm mb-3" (change)="actualizarPrecioCosto(lineas.planilla.id,$event)"></td>
+                        <td><input type="number" step="any" value="{{lineas.precioVenta}}" class="input-group input-group-sm mb-3" (change)="actualizarPrecioVenta(lineas.planilla.id,$event)"></td>
+                        <td>
+                            <input type="number" step="any" value={{lineas.bonificacion}} class="input-group input-group-sm mb-3" (change)="actualizarBonificacion(lineas.planilla.id,$event)">
+                        </td>
+                        <td><input readonly type="number" step="any" value="{{lineas.calcularPrecioDescuento()}}"  class="input-group input-group-sm mb-3">
+                                </td>
+                        <td><select name="iva"   class="form-select form-select-sm"  
+                            [(ngModel)]="presupuesto.lineasPlanillas[i].iva">
+                                <option *ngFor="let iva of iva;let index = index" [ngValue]="iva" [selected]="index == 1">{{iva.valor}}</option>
+                            </select></td>
+                        
+                        <td>{{lineas.calcularImporte()}}</td>
+                        <td><button class="btn btn-danger btn-sm" type="button" (click)="eliminarLineaPlanilla(lineas.planilla.id)">eliminar</button></td>
+                    </tr>
+                    <!--[compareWith]="compareIva" -->
+                </tbody>
+            </table>
+
+
+<h2 class="float-right">total: <span class="badge badge-secondary">{{presupuesto.calcularTotal()}}</span>
+</h2>
+
+            <div class="form-group row">
+
+                <div class="col-sm-6">
+                    <input type="submit" (click)="create()" value="Cresar presupuesto" class="btn btn-secondary" />
+
+                </div>
+            </div>
+            
+        </form>
+    </div>
+</div>
