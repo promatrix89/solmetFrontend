@@ -7,6 +7,7 @@ import { Orden } from '../models/orden';
 import { OrdenDiaOperario } from '../models/orden-dia-operario';
 import { OrdenEstadoDto } from '../models/orden-estado-dto';
 import { CommonService } from './common.service';
+import { Utils } from './utils';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ import { CommonService } from './common.service';
 export class OrdenService extends CommonService<Orden>{
   ordenDiaList: OrdenDiaOperario[];
   // protected baseEndpoint='https://solmetdemo.herokuapp.com:8080/api/v1/operarios';
-  protected baseEndpoint = 'http://localhost:8080/api/v1/ordenesTrabajo';
+  protected baseEndpoint = Utils.getRemote() +'v1/ordenesTrabajo';
 
   constructor(http: HttpClient) {
     super(http);

@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Parte } from '../models/parte';
 import { CommonService } from './common.service';
+import { Utils } from './utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ParteService extends CommonService<Parte>{
 
-  protected baseEndpoint='http://localhost:8080/api/v1/partes';
+  protected baseEndpoint=Utils.getRemote() +'api/v1/partes';
   //protected baseEndpoint='https://solmetdemo.herokuapp.com/api/v1/partes';
   
 

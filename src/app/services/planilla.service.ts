@@ -6,6 +6,7 @@ import { Localidad } from '../models/localidad';
 import { Operario } from '../models/operario';
 import { PlanillaFormacionCosto } from '../models/planilla-formacion-costo';
 import { CommonService } from './common.service';
+import { Utils } from './utils';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ import { CommonService } from './common.service';
 export class PlanillaService extends CommonService<PlanillaFormacionCosto>{
 
   //protected baseEndpoint='https://solmetdemo.herokuapp.com/api/v1/planillaCostos';
-  protected baseEndpoint='http://localhost:8080/api/v1/planillaCostos';
+  protected baseEndpoint=Utils.getRemote() +'v1/planillaCostos';
   constructor(http: HttpClient) { 
     super(http);
  

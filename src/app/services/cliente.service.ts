@@ -1,10 +1,12 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { utils } from 'protractor';
 import { Observable } from 'rxjs';
 
 import { Cliente } from '../models/cliente';
 import { Localidad } from '../models/localidad';
 import { CommonService } from './common.service';
+import { Utils } from './utils';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ import { CommonService } from './common.service';
 export class ClienteService extends CommonService<Cliente>{
 
   //protected baseEndpoint='https://solmetdemo.herokuapp.com/api/v1/clientes';
-  protected baseEndpoint='http://localhost:8080/api/v1/clientes';
+  protected baseEndpoint=Utils.getRemote() +'clientes';
   constructor(http: HttpClient) {
       super(http);
   }

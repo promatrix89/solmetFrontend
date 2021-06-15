@@ -9,6 +9,7 @@ import { Orden } from '../models/orden';
 import { PlanillaFormacionCosto } from '../models/planilla-formacion-costo';
 import { Presupuesto } from '../models/presupuesto';
 import { CommonService } from './common.service';
+import { Utils } from './utils';
 
 
 
@@ -18,7 +19,7 @@ import { CommonService } from './common.service';
 export class PresupuestoService extends CommonService<Presupuesto>{
 
   //protected baseEndpoint='https://solmetdemo.herokuapp.com/api/v1/presupuestos';
-  protected baseEndpoint='http://localhost:8080/api/v1/presupuestos';
+  protected baseEndpoint=Utils.getRemote() +'v1/presupuestos';
   constructor(http: HttpClient) { 
     super(http);
  

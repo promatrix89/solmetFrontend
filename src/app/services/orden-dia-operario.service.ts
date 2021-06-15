@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { OperarioHorasDto } from "../models/OperarioHorasDto";
 import { OrdenDiaOperario } from "../models/orden-dia-operario";
 import { CommonService } from "./common.service";
+import { Utils } from "./utils";
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +12,7 @@ import { CommonService } from "./common.service";
   export class OrdenDiaOperarioService extends CommonService<OrdenDiaOperario>{
     protected base='http://localhost:8080/';
    // protected baseEndpoint='https://solmetdemo.herokuapp.com:8080/api/v1/operarios';
-    protected baseEndpoint=this.base+'api/v1/orden-dia-trabajo';
+    protected baseEndpoint=Utils.getRemote() +'orden-dia-trabajo';
     
     constructor(http: HttpClient) { 
       super(http);
